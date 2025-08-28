@@ -1,0 +1,101 @@
+text,label
+product manufactured on May 2026,O O O B-DATE I-DATE
+her birthday is 22/01/2008,O O O B-DATE
+application submitted August 2016,O O B-DATE I-DATE
+membership started in 11th of May 2027,O O O B-DATE O B-DATE I-DATE
+he graduated in May 2006,O O O B-DATE I-DATE
+contract will expire June 2024,O O O B-DATE I-DATE
+driver license issued April 2017,O O O B-DATE I-DATE
+driver license issued 16/02/1997,O O O B-DATE
+membership started in 20 Feb 2020,O O O B-DATE I-DATE I-DATE
+he graduated in 26 Oct 2014,O O O B-DATE I-DATE I-DATE
+file last modified 25-01-2014,O O O B-DATE
+file last modified 22-06-2027,O O O B-DATE
+application reviewed 01-05-2005,O O B-DATE
+software license expires 15 Aug 1991,O O O B-DATE I-DATE I-DATE
+policy renewed on 30.11.2016,O O O B-DATE
+application reviewed 11/03/2005,O O B-DATE
+he left the job on 2005-03-22,O O O O O B-DATE
+training session held on November 2015,O O O O B-DATE I-DATE
+product manufactured on 2022-09-07,O O O B-DATE
+rent due on 07/09/2008,O O O B-DATE
+application submitted 01 Aug 2029,O O B-DATE I-DATE I-DATE
+membership started in 27 Apr 2003,O O O B-DATE I-DATE I-DATE
+contract will expire 24 Sep 1991,O O O B-DATE I-DATE I-DATE
+lease signed on 16 April 2012,O O O B-DATE I-DATE I-DATE
+policy renewed on 16th of November 2004,O O O B-DATE O B-DATE I-DATE
+contract will expire 02th of September 2027,O O O B-DATE O B-DATE I-DATE
+policy renewed on 24-02-2012,O O O B-DATE
+her birthday is 31th of August 2007,O O O B-DATE O B-DATE I-DATE
+application submitted 01 January 2016,O O B-DATE I-DATE I-DATE
+policy renewed on 18.08.2009,O O O B-DATE
+file last modified 09th of January 2022,O O O B-DATE O B-DATE I-DATE
+product manufactured on 04-06-2005,O O O B-DATE
+application reviewed 11 February 2021,O O B-DATE I-DATE I-DATE
+software license expires 11 June 2015,O O O B-DATE I-DATE I-DATE
+file last modified 28th of March 2018,O O O B-DATE O B-DATE I-DATE
+holiday starts 07/06/1993,O O B-DATE
+driver license issued 05/07/1996,O O O B-DATE
+membership started in 06th of April 1996,O O O B-DATE O B-DATE I-DATE
+training session held on 29 October 2002,O O O O B-DATE I-DATE I-DATE
+exam scheduled for 24/11/2018,O O O B-DATE
+her birthday is October 1996,O O O B-DATE I-DATE
+exam scheduled for 27-03-2006,O O O B-DATE
+membership started in 29 Jul 2003,O O O B-DATE I-DATE I-DATE
+application submitted September 2025,O O B-DATE I-DATE
+application submitted 23.05.1998,O O B-DATE
+policy renewed on 1997-08-24,O O O B-DATE
+certificate awarded 1995-12-05,O O B-DATE
+lease signed on 16.03.2017,O O O B-DATE
+product manufactured on 11/10/1999,O O O B-DATE
+holiday starts 22 Jun 2024,O O B-DATE I-DATE I-DATE
+holiday starts 2019-03-10,O O B-DATE
+file last modified 05 August 2026,O O O B-DATE I-DATE I-DATE
+training session held on 20th of April 1998,O O O O B-DATE O B-DATE I-DATE
+policy renewed on February 2018,O O O B-DATE I-DATE
+he graduated in 29 Jun 1992,O O O B-DATE I-DATE I-DATE
+driver license issued 04-11-2000,O O O B-DATE
+he graduated in July 2004,O O O B-DATE I-DATE
+driver license issued 23.02.2026,O O O B-DATE
+application submitted 29 January 2007,O O B-DATE I-DATE I-DATE
+training session held on 24-11-2011,O O O O B-DATE
+visa valid until December 1997,O O O B-DATE I-DATE
+certificate awarded 19-04-1995,O O B-DATE
+software license expires 2004-11-06,O O O B-DATE
+application submitted 20/10/2003,O O B-DATE
+holiday starts 04-06-1991,O O B-DATE
+passport renewal date 24.05.2030,O O O B-DATE
+file last modified 06 October 2010,O O O B-DATE I-DATE I-DATE
+driver license issued 06-02-2025,O O O B-DATE
+software license expires 26 Jan 2011,O O O B-DATE I-DATE I-DATE
+exam scheduled for 25th of December 1993,O O O B-DATE O B-DATE I-DATE
+rent due on February 2028,O O O B-DATE I-DATE
+passport renewal date 26-07-2030,O O O B-DATE
+her birthday is February 2007,O O O B-DATE I-DATE
+rent due on 22.12.2025,O O O B-DATE
+he left the job on 05 Aug 2030,O O O O O B-DATE I-DATE I-DATE
+product manufactured on May 2029,O O O B-DATE I-DATE
+he graduated in 26.12.2016,O O O B-DATE
+driver license issued August 1995,O O O B-DATE I-DATE
+software license expires February 2004,O O O B-DATE I-DATE
+policy renewed on 02.08.2003,O O O B-DATE
+he left the job on 28-02-2024,O O O O O B-DATE
+membership started in 19-01-2015,O O O B-DATE
+application reviewed August 1994,O O B-DATE I-DATE
+he graduated in 2007-07-09,O O O B-DATE
+software license expires 23 November 2000,O O O B-DATE I-DATE I-DATE
+exam scheduled for 2004-02-13,O O O B-DATE
+lease signed on March 1996,O O O B-DATE I-DATE
+training session held on 02.06.2016,O O O O B-DATE
+rent due on 1995-11-29,O O O B-DATE
+rent due on 04th of November 2006,O O O B-DATE O B-DATE I-DATE
+he graduated in 2007-10-06,O O O B-DATE
+driver license issued 02.07.2009,O O O B-DATE
+product manufactured on July 2005,O O O B-DATE I-DATE
+application submitted 25/11/2011,O O B-DATE
+lease signed on 1994-12-25,O O O B-DATE
+he graduated in 02th of March 2023,O O O B-DATE O B-DATE I-DATE
+holiday starts 01-04-1991,O O B-DATE
+application submitted 12 May 2018,O O B-DATE I-DATE I-DATE
+passport renewal date 10 March 2023,O O O B-DATE I-DATE I-DATE
+certificate awarded November 2015,O O B-DATE I-DATE
