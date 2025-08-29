@@ -9,24 +9,26 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, Trainin
 # -------------------------------
 MODEL_NAME = "distilbert-base-uncased"
 OUTPUT_DIR = "backend/distil_date_model"
-BATCH_SIZE = 8
-EPOCHS = 10
+BATCH_SIZE = 10
+EPOCHS = 6
 MAX_LEN = 128
-LABEL_LIST = ["O", "B-DATE", "I-DATE"]  # only DATE labels
+LABEL_LIST = ["O", "B-DATE", "I-DATE", "B-MONEY", "I-MONEY", "B-BANK", "I-BANK", "B-ADDRESS", "I-ADDRESS"]
 LABEL2ID = {l:i for i,l in enumerate(LABEL_LIST)}
 ID2LABEL = {i:l for i,l in enumerate(LABEL_LIST)}
 
 # -------------------------------
 # Load CSV dataset
 # -------------------------------
-def load_csv_dataset(csv_path):
-    df = pd.read_csv(csv_path)
-    samples = []
-    for _, row in df.iterrows():
-        tokens = row["text"].split()
-        labels = row["label"].split()
-        samples.append({"text": " ".join(tokens), "label": " ".join(labels)})
-    return Dataset.from_list(samples)
+def load_csv_folder(data_folder):
+    all_samples = []
+    for file in os.listdir(data_folder):
+        if file.endswith(".csv"):
+            df = pd.read_csv(os.path.join(data_folder, file))
+            for _, row in df.iterrows():
+                tokens = row["text"].split()
+                labels = row["label"].split()
+                all_samples.append({"text": " ".join(tokens), "label": " ".join(labels)})
+    return Dataset.from_list(all_samples)
 
 
 # -------------------------------
@@ -69,7 +71,7 @@ def encode_batch(example, tokenizer, label2id, max_length=128):
 labels = ["O","B-DATE","I-DATE"]  # plus any others you want
 label2id = {l:i for i,l in enumerate(labels)}
 
-def train(csv_path):
+def train(dataset):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)
     model = AutoModelForTokenClassification.from_pretrained(
         MODEL_NAME,
@@ -78,8 +80,7 @@ def train(csv_path):
         label2id=LABEL2ID
     )
 
-    dataset = load_csv_dataset(csv_path)
-    encoded_dataset = dataset.map(lambda x: encode_batch(x, tokenizer, label2id), batched=False)
+    encoded_dataset = dataset.map(lambda x: encode_batch(x, tokenizer, LABEL2ID), batched=False)
 
     # set torch format
     encoded_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "labels"])
@@ -108,9 +109,11 @@ def train(csv_path):
     tokenizer.save_pretrained(OUTPUT_DIR)
     print(f"✅ DistilBERT fine-tuned model saved to {OUTPUT_DIR}")
 
+
 # ----------------------------
 # Run
 # ----------------------------
 if __name__ == "__main__":
-    csv_path = os.path.join(os.path.dirname(__file__), "..", "data", "synthetic_dates.csv")
-    train(csv_path)
+    data_folder = os.path.join(os.path.dirname(__file__), "..", "data")
+    dataset = load_csv_folder(data_folder)
+    train(dataset)

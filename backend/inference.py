@@ -16,15 +16,15 @@ class PIIModel:
     PASSPORT_RE = re.compile(r"[eE]\d{7}[A-Za-z]")
     LIC_PLATE_RE = re.compile(r"S[A-HJ-NP-Z][1-9]\d{0,3}[A-EG-HJ-MP-UZ]")
     DATE_RE = re.compile(
-    r"(?:"
-    r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}"
-    r"|\d{4}[/-]\d{1,2}[/-]\d{1,2}"
-    r"|\d{1,2}\.\d{1,2}\.\d{4}"
-    r"|\d{1,2}(?:st|nd|rd|th)?\s+of\s+[A-Za-z]+\s+\d{4}"
-    r"|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4}"
-    r"|\d{1,2}\s+[A-Za-z]{3}\s+\d{4}"         
-    r"|[A-Za-z]+\s+\d{4}"                     
-    r")"
+        r"(?:"
+        r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}"    
+        r"|\d{4}[/-]\d{1,2}[/-]\d{1,2}"       
+        r"|\d{1,2}\.\d{1,2}\.\d{4}"         
+        r"|\d{1,2}(?:st|nd|rd|th)?\s+of\s+[A-Za-z]+\s+\d{4}"  
+        r"|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4}"
+        r"|\d{1,2}\s+[A-Za-z]{3}\s+\d{4}"    
+        r"|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}" 
+        r")"
     )
     MONEY_RE = re.compile(
         r"(?:USD|SGD|EUR|GBP|AUD|CAD|\$|€|£)\s?\d{1,3}(?:,\d{3})*(?:\.\d{2})?"
@@ -36,6 +36,7 @@ class PIIModel:
         r"@[A-Za-z0-9][A-Za-z0-9_.-]{1,29}"
         r"(?!\.[A-Za-z]{2,})"
     )
+    POSTAL_CODE_RE = re.compile(r"\b\d{6}\b")
 
 
 
@@ -68,7 +69,8 @@ class PIIModel:
                          (self.IPV4_RE,"IP"), (self.SG_PHONE_RE,"PHONE"),
                          (self.NRIC_RE,"NATIONAL_ID"), (self.PASSPORT_RE, "PASSPORT"),
                          (self.LIC_PLATE_RE, "LICENSE_PLATE"), (self.DATE_RE, "DATE"),
-                         (self.MONEY_RE, "MONEY"), (self.SOCIAL_HANDLE_RE, "HANDLE")]:
+                         (self.MONEY_RE, "MONEY"), (self.SOCIAL_HANDLE_RE, "HANDLE"),
+                         (self.POSTAL_CODE_RE, "POSTAL")]:
             for m in pat.finditer(text):
                 spans.append({"start": m.start(), "end": m.end(), "label": lab,
                               "score": 1.0, "word": text[m.start():m.end()]})
@@ -163,4 +165,23 @@ class PIIModel:
     # -------------------------------
     def predict(self, text):
         all_spans = self.regex_spans(text) + self.ml_spans(text) + self.distil_spans(text)
-        return self.merge_spans(all_spans)
+        merged = self.merge_spans(all_spans)
+
+        grouped = {}
+        for span in merged:
+            key = (span["label"], span["word"])
+            start_end = [span["start"], span["end"]]  # convert tuple to list
+            score = span["score"]
+
+            if key not in grouped:
+                grouped[key] = {
+                    "position": [start_end],
+                    "label": span["label"],
+                    "score": score,
+                    "word": span["word"]
+                }
+            else:
+                grouped[key]["position"].append(start_end)
+                grouped[key]["score"] = max(grouped[key]["score"], score)
+
+        return list(grouped.values())
