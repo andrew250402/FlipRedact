@@ -1,8 +1,8 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .schemas import PredictRequest, PredictResponse
-from .inference import PIIModel
+from schemas import PredictRequest, PredictResponse
+from inference import PIIModel
 
 MODEL_DIR = os.getenv(
     "MODEL_DIR", os.path.join(os.path.dirname(__file__), "distil_date_model")
