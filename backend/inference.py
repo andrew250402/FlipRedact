@@ -13,6 +13,32 @@ class PIIModel:
     SG_PHONE_RE = re.compile(r"(?<!\d)(?:\+65[\s-]?)?(?:[3698]\d{3}[\s-]?\d{4})(?!\d)")
     CC_RE    = re.compile(r"(?<!\d)(?:\d[ -]?){13,19}(?!\d)")
     NRIC_RE  = re.compile(r"(?i)\b[STFGM]\d{7}[A-Z]\b")
+    PASSPORT_RE = re.compile(r"[eE]\d{7}[A-Za-z]")
+    LIC_PLATE_RE = re.compile(r"S[A-HJ-NP-Z][1-9]\d{0,3}[A-EG-HJ-MP-UZ]")
+    DATE_RE = re.compile(
+    r"(?:"
+    r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}"
+    r"|\d{4}[/-]\d{1,2}[/-]\d{1,2}"
+    r"|\d{1,2}\.\d{1,2}\.\d{4}"
+    r"|\d{1,2}(?:st|nd|rd|th)?\s+of\s+[A-Za-z]+\s+\d{4}"
+    r"|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4}"
+    r"|\d{1,2}\s+[A-Za-z]{3}\s+\d{4}"         
+    r"|[A-Za-z]+\s+\d{4}"                     
+    r")"
+    )
+    MONEY_RE = re.compile(
+        r"(?:USD|SGD|EUR|GBP|AUD|CAD|\$|€|£)\s?\d{1,3}(?:,\d{3})*(?:\.\d{2})?"
+        r"|\d+(?:,\d{3})*(?:\.\d{2})?\s?(?:dollars?|bucks?|cents?)",
+        re.IGNORECASE
+    )
+    SOCIAL_HANDLE_RE = re.compile(
+        r"(?<![A-Za-z0-9])"
+        r"@[A-Za-z0-9][A-Za-z0-9_.-]{1,29}"
+        r"(?!\.[A-Za-z]{2,})"
+    )
+
+
+
 
     # -------------------------------
     # Initialize models
@@ -40,7 +66,9 @@ class PIIModel:
         spans = []
         for pat, lab in [(self.EMAIL_RE,"EMAIL"), (self.URL_RE,"URL"),
                          (self.IPV4_RE,"IP"), (self.SG_PHONE_RE,"PHONE"),
-                         (self.NRIC_RE,"NATIONAL_ID")]:
+                         (self.NRIC_RE,"NATIONAL_ID"), (self.PASSPORT_RE, "PASSPORT"),
+                         (self.LIC_PLATE_RE, "LICENSE_PLATE"), (self.DATE_RE, "DATE"),
+                         (self.MONEY_RE, "MONEY"), (self.SOCIAL_HANDLE_RE, "HANDLE")]:
             for m in pat.finditer(text):
                 spans.append({"start": m.start(), "end": m.end(), "label": lab,
                               "score": 1.0, "word": text[m.start():m.end()]})
