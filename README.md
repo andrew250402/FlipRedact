@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 4. Run finetuning to get model
 ```
-python backend/train_phone_model.py
+python backend/train_distil_model.py
 ```
 
 5. Run FastAPI
