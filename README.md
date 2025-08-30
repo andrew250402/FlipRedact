@@ -30,7 +30,7 @@ pip install -r requirements.txt
 uvicorn backend.app:app --reload --port 3000
 ```
 
-### Run Fronend
+### Run Frontend
 NodeJs is required to run Frontend
 
 1. Open another powershell
