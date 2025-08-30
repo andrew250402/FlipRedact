@@ -117,7 +117,7 @@ class PIIModel:
     # -------------------------------
     # Distil spans (custom fine-tuned)
     # -------------------------------
-    def distil_spans(self, text, threshold=0.7):
+    def distil_spans(self, text, threshold=0.8):
         if self.distil_ner is None: return []
         enc = self.distil_tok(text, return_offsets_mapping=True, return_tensors="pt", truncation=True)
         offsets = enc.pop("offset_mapping")[0].tolist()

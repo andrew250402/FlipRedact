@@ -5,7 +5,7 @@ import csv
 # -----------------------------
 # Config
 # -----------------------------
-NUM_SAMPLES = 100
+NUM_SAMPLES = 250
 OUTPUT_CSV = "data/synthetic_dates.csv"
 
 # Common templates with a placeholder {date}

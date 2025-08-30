@@ -4,7 +4,7 @@ import csv
 # -----------------------------
 # Config
 # -----------------------------
-NUM_SAMPLES = 100
+NUM_SAMPLES = 250
 OUTPUT_CSV = "data/synthetic_bank_accounts.csv"
 
 # Bank-specific account digit patterns
