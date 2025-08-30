@@ -46,10 +46,10 @@ export default function Sidebar({
         </select>
         <button
           onClick={() => toggleLabel(filter)}
-          disabled={filter === "ALL"}
+          // disabled={filter === "ALL"}
           className={`px-4 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-50 transition-colors ${buttonClasses}`}
         >
-          Toggle Redact All {filter}
+          Redact {filter}
         </button>
       </div>
       
@@ -57,7 +57,7 @@ export default function Sidebar({
       <div className="mb-4">
         <button
           onClick={exportRedactedText}
-          disabled={redactedKeys.size === 0}
+          // disabled={redactedKeys.size === 0}
           className={`w-full px-4 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-50 transition-colors ${exportButtonClasses}`}
         >
           Apply Redactions ({redactedKeys.size} selected)
