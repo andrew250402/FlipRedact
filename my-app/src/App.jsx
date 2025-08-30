@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import TextInput from "./components/TextInput";
 import TextDisplay from "./components/TextDisplay";
 import Sidebar from "./components/Sidebar";
+import DecoderInput from "./components/DecoderInput.jsx";
 
 export default function App() {
   const [originalText, setOriginalText] = useState("");
@@ -9,6 +10,7 @@ export default function App() {
   const [entities, setEntities] = useState([]);
   const [filter, setFilter] = useState("ALL");
   const [redactedKeys, setRedactedKeys] = useState(new Set());
+  const [piiMapping, setPiiMapping] = useState(new Map());
   const entityRefs = useRef({});
 
   const runCheck = async () => {
@@ -22,6 +24,7 @@ export default function App() {
 
       const data = await res.json();
 
+      
       // Map backend format to frontend format
       const entities = data.pii.map((item, idx) => {
         const labelCap = item.label.charAt(0) + item.label.slice(1).toLowerCase();
@@ -37,6 +40,13 @@ export default function App() {
       setEntities(entities);
       setDisplayText(originalText);
       setRedactedKeys(new Set());
+
+      // Build mapping of redacted keys to original values
+      const mapping = new Map();
+      entities.forEach(entity => {
+        mapping.set(entity.key, entity.original);
+      });
+      setPiiMapping(mapping);
     } catch (err) {
       console.error("Failed to fetch PII data:", err);
     }
@@ -92,43 +102,63 @@ export default function App() {
     entityRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  const decodePII = (textToDecode) => {
+    let decodedText = textToDecode;
+    
+    // Replace each redacted key with its original value
+    piiMapping.forEach((originalValue, redactedKey) => {
+      const regex = new RegExp(redactedKey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'); // Escape special regex characters
+      decodedText = decodedText.replace(regex, originalValue);
+    });
+    
+    return decodedText;
+  };
+
   const filteredEntities = filter === "ALL" ? entities : entities.filter(e => e.label === filter);
 
   return (
-    <div className="max-w-7xl mx-auto p-10 bg-surface min-h-screen rounded-xl shadow-lg flex flex-row">
+    <div className="max-w-7xl mx-auto p-10 bg-surface min-h-screen rounded-xl shadow-lg flex flex-col gap-6">
       
-      {/* LEFT PANEL */}
-      <div className="flex flex-col flex-grow pr-4 border-r border-gray-300">
-        <TextInput
-          originalText={originalText}
-          setOriginalText={setOriginalText}
-          onRunCheck={runCheck}
-        />
-        <div className="mt-4 flex-grow overflow-auto">
-          <TextDisplay
-            displayText={displayText}
+      <div className="flex flex-row">
+        {/* LEFT PANEL */}
+        <div className="flex flex-col flex-grow pr-4 border-r border-gray-300">
+          <TextInput
             originalText={originalText}
-            entities={entities}
+            setOriginalText={setOriginalText}
+            onRunCheck={runCheck}
+          />
+          <div className="mt-4 flex-grow overflow-auto">
+            <TextDisplay
+              displayText={displayText}
+              originalText={originalText}
+              entities={entities}
+              redactedKeys={redactedKeys}
+              handleHighlightClick={handleHighlightClick} 
+            />
+          </div>
+        </div>
+
+        {/* SIDEBAR */}
+        <div className="w-[320px] flex-shrink-0 pl-6">
+          <Sidebar
+            entities={filteredEntities}
+            allEntities={entities}
+            filter={filter}
+            setFilter={setFilter}
+            toggleLabel={toggleLabel}
+            togglePII={togglePII}
             redactedKeys={redactedKeys}
-            handleHighlightClick={handleHighlightClick} 
+            entityRefs={entityRefs}
+            exportRedactedText={applyRedactions}
           />
         </div>
       </div>
 
-      {/* SIDEBAR */}
-      <div className="w-[320px] flex-shrink-0 pl-6">
-        <Sidebar
-          entities={filteredEntities}
-          allEntities={entities} // Fixed: use entities instead of allEntities
-          filter={filter}
-          setFilter={setFilter}
-          toggleLabel={toggleLabel}
-          togglePII={togglePII}
-          redactedKeys={redactedKeys}
-          entityRefs={entityRefs}
-          exportRedactedText={applyRedactions} // Changed back to applyRedactions
-        />
-      </div>
+      {/* DECODER INPUT COMPONENT */}
+      <DecoderInput 
+        piiMapping={piiMapping}
+        decodePII={decodePII}
+      />
 
     </div> 
   );
