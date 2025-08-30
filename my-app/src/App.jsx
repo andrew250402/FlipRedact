@@ -24,13 +24,22 @@ export default function App() {
 
       const data = await res.json();
 
+      // Create label-specific counters
+      const labelCounters = {};
       
       // Map backend format to frontend format
       const entities = data.pii.map((item, idx) => {
         const labelCap = item.label.charAt(0) + item.label.slice(1).toLowerCase();
+
+        // Initialize or increment counter for this label
+        if (!labelCounters[labelCap]) {
+          labelCounters[labelCap] = 0;
+        }
+        labelCounters[labelCap]++; // Increment counter for this label if initialized
+
         return {
-          key: `${labelCap}_${idx + 1}`, // e.g. Email_1, National_id_2
-          label: item.label,
+          key: `${labelCap}_${labelCounters[labelCap]}`, // e.g. Email_1, Email_2, Person_1
+          label: item.label,          
           score: item.score,
           original: item.word,
           positions: item.position, // Store all positions

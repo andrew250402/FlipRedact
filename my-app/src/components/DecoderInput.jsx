@@ -91,7 +91,7 @@ export default function DecoderInput({ piiMapping, decodePII }) {
             {Array.from(piiMapping.entries()).map(([key, value]) => (
               <div key={key} className="flex justify-between">
                 <span className="font-mono bg-blue-100 px-1 rounded">{key}</span>
-                <span>→</span>
+                
                 <span className="truncate ml-2">{value}</span>
               </div>
             ))}
