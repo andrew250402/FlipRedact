@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, Trainin
 # Config
 # -------------------------------
 MODEL_NAME = "distilbert-base-uncased"
-OUTPUT_DIR = "backend/distil_date_model"
+OUTPUT_DIR = "backend/distil_model"
 BATCH_SIZE = 10
 EPOCHS = 6
 MAX_LEN = 128
@@ -67,9 +67,6 @@ def encode_batch(example, tokenizer, label2id, max_length=128):
 # -------------------------------
 # Training
 # -------------------------------
-
-labels = ["O","B-DATE","I-DATE"]  # plus any others you want
-label2id = {l:i for i,l in enumerate(labels)}
 
 def train(dataset):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)

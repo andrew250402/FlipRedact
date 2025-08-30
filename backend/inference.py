@@ -44,21 +44,24 @@ class PIIModel:
     # -------------------------------
     # Initialize models
     # -------------------------------
-    def __init__(self, distil_model_dir=None):
+    def __init__(self):
         # Base BERT NER
         self.tok = AutoTokenizer.from_pretrained("dslim/bert-base-NER", use_fast=True)
         self.ner = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER").eval()
         self.id2label = self.ner.config.id2label
 
-        # DistilBERT fine-tuned for custom PII (e.g., DATE)
-        if distil_model_dir and os.path.exists(distil_model_dir):
-            self.distil_tok = AutoTokenizer.from_pretrained(distil_model_dir)
-            self.distil_ner = AutoModelForTokenClassification.from_pretrained(distil_model_dir).eval()
+        # Load fine-tuned DistilBERT from HF
+        hf_model_repo = "andrew2504/finetuned_redact_model"
+        try:
+            self.distil_tok = AutoTokenizer.from_pretrained(hf_model_repo)
+            self.distil_ner = AutoModelForTokenClassification.from_pretrained(hf_model_repo).eval()
             self.distil_id2label = self.distil_ner.config.id2label
-        else:
+        except Exception as e:
+            print(f"⚠️ Could not load HF model {hf_model_repo}: {e}")
             self.distil_tok = None
             self.distil_ner = None
             self.distil_id2label = None
+
 
     # -------------------------------
     # Regex spans
