@@ -1,3 +1,20 @@
+## About FlipRedact
+1. What it does
+
+FlipRedact is a web app that helps you safely interact with Large Language Models (LLMs) by detecting Personally Identifiable Information (PII) in your text. It lets users selectively redact sensitive information before sending it to an LLM, and then conveniently unredact the results afterwards.
+
+2. How it work
+
+We built FlipRedact using a hybrid approach:
+
+* Regex rules to catch common structured PII (like phone numbers and emails).
+
+* A pretrained Named Entity Recognition (NER) model from Hugging Face to detect general entities.
+
+* A finetuned DistilBERT model to capture more domain-specific PII with higher accuracy.
+
+Detected PII is returned with its position, type, and confidence score, which the frontend uses to highlight text and provide interactive redaction options for the user.
+
 ## How to run FlipRedact
 ### Set up
 1. Open powershell and run
