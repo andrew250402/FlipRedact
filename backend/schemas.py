@@ -8,3 +8,7 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     pii: List[PIIEntity]
+
+class ExtractedTextResponse(BaseModel):
+    extracted_text: str
+    
