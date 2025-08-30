@@ -1,6 +1,15 @@
-To run for window
+### Set up
+1. Open powershell and run
+```
+git clone
+```
+2. Change directory to the cloned folder
+```
+cd FlipRedact
+```
 
-1. Create virtual environment
+### Run Backend
+1. Open a powershell and create virtual environment
 ```
 python -m venv venv
 ```
@@ -15,21 +24,19 @@ venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-4. Run finetuning to get model
-```
-python backend/train_distil_model.py
-```
-
-5. Run FastAPI
+4. Run FastAPI
 ```
 uvicorn backend.app:app --reload --port 3000
 ```
 
-6. Open powershell
+### Run Fronend
+NodeJs is required to run Frontend
+
+1. Open another powershell
 ```
-Invoke-RestMethod -Uri "http://127.0.0.1:3000/predict" `
->>                   -Method POST `
->>                   -Headers @{ "Content-Type" = "application/json" } `
->>                   -Body '{"text":"Enter your input here"}'
->>
+npm install
+```
+2. Run app
+```
+npm run start
 ```
