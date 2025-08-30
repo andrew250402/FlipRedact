@@ -25,7 +25,23 @@ export default function DecoderInput({ piiMapping, decodePII, isDarkMode }) {
     const decoded = decodePII(inputText);
     setDecodedText(decoded);
   };
-
+  const copyDecodedText = async () => {
+    try {
+      await navigator.clipboard.writeText(decodedText);
+      alert('Decoded text copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = decodedText;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('Decoded text copied to clipboard!');
+    }
+  };
+  
   return (
     <div className={`mt-6 p-6 rounded-xl shadow-lg border ${containerClasses}`}>
       <h3 className="text-xl font-bold mb-4">PII Decoder</h3>
@@ -40,7 +56,21 @@ export default function DecoderInput({ piiMapping, decodePII, isDarkMode }) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Decoded Text</label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-medium">Decoded Text</label>
+            {decodedText && (
+              <button
+                onClick={copyDecodedText}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                  <path d="M4 16c-1.1 0-2-.9-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                </svg>
+                Copy 
+              </button>
+            )}
+          </div>
           <div className={`w-full h-32 p-3 border rounded-lg overflow-auto ${resultClasses}`}>
             {decodedText || "Decoded text will appear here..."}
           </div>
