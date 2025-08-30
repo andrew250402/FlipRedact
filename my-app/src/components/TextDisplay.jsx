@@ -1,4 +1,13 @@
-export default function TextDisplay({ displayText, originalText, entities, redactedKeys, handleHighlightClick }) {
+export default function TextDisplay({ displayText, originalText, entities, redactedKeys, handleHighlightClick, isDarkMode }) {
+  // Theme-aware classes
+  const containerClasses = isDarkMode
+    ? "bg-gray-800 border-gray-600 text-white"
+    : "bg-gray-100 border-gray-300 text-gray-900";
+    
+  const buttonClasses = isDarkMode
+    ? "bg-blue-600 hover:bg-blue-700"
+    : "bg-blue-500 hover:bg-blue-600";
+
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(displayText);
@@ -19,12 +28,12 @@ export default function TextDisplay({ displayText, originalText, entities, redac
   if (!entities.length) {
     return (
       <div>
-        <div className="text-display mt-8 p-4 bg-gray-100 rounded-lg border border-gray-300 min-h-[100px] leading-relaxed">
+        <div className={`text-display mt-8 p-4 rounded-lg border min-h-[100px] leading-relaxed ${containerClasses}`}>
           {displayText}
         </div>
         <button
           onClick={copyToClipboard}
-          className="mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
+          className={`mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${buttonClasses}`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
@@ -40,16 +49,16 @@ export default function TextDisplay({ displayText, originalText, entities, redac
   if (displayText !== originalText) {
     return (
       <div>
-        <div className="text-display mt-8 p-4 bg-gray-100 rounded-lg border border-gray-300 min-h-[100px] leading-relaxed">
+        <div className={`text-display mt-8 p-4 rounded-lg border min-h-[100px] leading-relaxed ${containerClasses}`}>
           {displayText}
         </div>
         <button
           onClick={copyToClipboard}
-          className="mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
+          className={`mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${buttonClasses}`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
-            <path d="M4 16c-1.1 0-2-.9-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
           </svg>
           Copy Text
         </button>
@@ -102,7 +111,7 @@ export default function TextDisplay({ displayText, originalText, entities, redac
 
   return (
     <div>
-      <div className="text-display mt-8 p-4 bg-gray-100 rounded-lg border border-gray-300 min-h-[100px] leading-relaxed">
+      <div className={`text-display mt-8 p-4 rounded-lg border min-h-[100px] leading-relaxed ${containerClasses}`}>
         {textChunks.map((chunk, i) =>
           chunk.isEntity ? (
             <mark
@@ -122,11 +131,11 @@ export default function TextDisplay({ displayText, originalText, entities, redac
       </div>
       <button
         onClick={copyToClipboard}
-        className="mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
+        className={`mt-3 flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${buttonClasses}`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
-          <path d="M4 16c-1.1 0-2-.9-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
         </svg>
         Copy Text
       </button>
