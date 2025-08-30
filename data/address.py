@@ -4,7 +4,7 @@ import csv
 # -----------------------------
 # Config
 # -----------------------------
-NUM_SAMPLES = 400
+NUM_SAMPLES = 1000
 OUTPUT_CSV = "data/synthetic_addresses.csv"
 
 # Context phrases
@@ -16,7 +16,7 @@ CONTEXTS = [
 # Street prefixes (some roads have prefixes like "Mount", "Sector")
 PREFIXES = ["Mount", "Sector", "Hill", "Bukit", "Coral", "St"]
 
-# Street base names (examples from your list)
+# Street base names
 STREETS = [
     "Hillview", "Gilstead", "Tanglin", "Berwick", "Temasek", "Dempsey", 
     "Bukit Batok East", "Harper", "Chin Bee", "Caldecott", "Ang Mo Kio", 
@@ -37,7 +37,7 @@ SUFFIXES = [
 ]
 
 # Units / building numbers
-UNITS = ["", "#01-102", "#05-14", "#03-06", "#08-04", "#29-01", "1st Storey", "2nd Storey"]
+UNITS = ["#01-102", "#05-14", "#03-06", "#08-04", "#29-01", "1st Storey", "2nd Storey"]
 
 # -----------------------------
 # Helper function
@@ -47,17 +47,31 @@ def random_address():
     prefix = random.choice(PREFIXES + [""])
     street = random.choice(STREETS)
     suffix = random.choice(SUFFIXES + [""])
-    unit = random.choice(UNITS)
-
-    # Combine address parts
-    parts = [prefix, street, suffix, unit]
-    # Remove empty strings
-    parts = [p for p in parts if p]
-    address = " ".join(parts)
     
-    # Full text with context
-    text = f"{context} {address}"
-    return text, address
+    # Add random street number
+    street_number = str(random.randint(1, 999)) if random.random() < 0.7 else ""
+
+    # Combine street name
+    street_name = " ".join([p for p in [street_number, prefix, street, suffix] if p])
+
+    # Maybe add unit number (position randomized)
+    unit = random.choice(UNITS)
+    if random.random() < 0.5:
+        street_name = f"{unit} {street_name}"
+    else:
+        street_name = f"{street_name} {unit}"
+
+    # Maybe add Singapore + postal code
+    if random.random() < 0.7:
+        postal_code = f"Singapore {random.randint(100000, 829999)}"
+        if random.random() < 0.5:
+            street_name = f"{street_name} {postal_code}"
+        else:
+            street_name = f"{postal_code} {street_name}"
+
+    # Final text with context
+    text = f"{context} {street_name}"
+    return text, street_name
 
 def label_address(text, address):
     """Create B/I-ADDRESS labels for the address portion only"""
@@ -66,7 +80,6 @@ def label_address(text, address):
     labels = []
     i = 0
     while i < len(tokens):
-        # check if the token starts the address
         if tokens[i:i+len(address_tokens)] == address_tokens:
             labels.append("B-ADDRESS")
             labels += ["I-ADDRESS"] * (len(address_tokens)-1)

@@ -4,7 +4,7 @@ import csv
 # -----------------------------
 # Config
 # -----------------------------
-NUM_SAMPLES = 200
+NUM_SAMPLES = 250
 OUTPUT_CSV = "data/synthetic_money.csv"
 
 # Templates with a {money} placeholder

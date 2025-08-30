@@ -1,6 +1,7 @@
 backend/__pycache__
 backend/models
 backend/model
+backend/distil_model
 backend/distil_date_model
 results
 venv
