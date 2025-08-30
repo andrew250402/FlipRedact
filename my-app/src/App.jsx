@@ -116,20 +116,29 @@ const runOCRCheck = async (file) => {
     const updated = new Set(redactedKeys);
     updated.has(key) ? updated.delete(key) : updated.add(key);
     setRedactedKeys(updated);
-    // Remove applyRedactions call since we only want visual selection
   };
 
   const toggleLabel = (label) => {
-    const updated = new Set(redactedKeys);
-    entities.forEach(e => {
-      if (e.label === label) {
-        updated.has(e.key) ? updated.delete(e.key) : updated.add(e.key);
-      }
-    });
-    setRedactedKeys(updated);
-    // Remove applyRedactions call since we only want visual selection
-  };
+  setRedactedKeys((prev) => {
+    const next = new Set(prev);
 
+    const listToToggle =
+      label === "ALL"
+        ? entities
+        : entities.filter((e) => e.label === label);
+
+    // If everything in the group is already selected, unselect all; otherwise select all.
+    const allSelected = listToToggle.length > 0 && listToToggle.every((e) => next.has(e.key));
+
+    if (allSelected) {
+      listToToggle.forEach((e) => next.delete(e.key));
+    } else {
+      listToToggle.forEach((e) => next.add(e.key));
+    }
+
+    return next;
+  });
+};
   const handleHighlightClick = (key) => {
     entityRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
