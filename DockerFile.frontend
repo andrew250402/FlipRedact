@@ -1,0 +1,18 @@
+# Dockerfile.frontend
+FROM node:18
+
+WORKDIR /app
+
+COPY my-app/package.json my-app/package-lock.json ./
+RUN npm install
+
+COPY my-app/ .
+
+# Build React app
+RUN npm run build
+
+# Serve via lightweight web server
+RUN npm install -g serve
+CMD ["serve", "-s", "build", "-l", "3000"]
+
+EXPOSE 3000
