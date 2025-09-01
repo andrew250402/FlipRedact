@@ -32,7 +32,7 @@ First, clone the repository and navigate into the project's root directory.
 
 ```bash
 # Clone the repository from GitHub
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/andrew250402/FlipRedact
 
 # Navigate into the newly created folder
 cd FlipRedact
