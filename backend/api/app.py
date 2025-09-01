@@ -54,3 +54,6 @@ async def ocr_predict(file: UploadFile = File(...)):
     return ExtractedTextResponse(
         extracted_text=extracted_text)
 
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app)
