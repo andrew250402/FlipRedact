@@ -1,63 +1,97 @@
+# FlipRedact
+
 ## About FlipRedact
-1. What it does
 
-FlipRedact is a web app that helps you safely interact with Large Language Models (LLMs) by detecting Personally Identifiable Information (PII) in your text. It lets users selectively redact sensitive information before sending it to an LLM, and then conveniently unredact the results afterwards.
+### 1. What it does
 
-2. How it work
+FlipRedact is a web app that helps you safely interact with Large Language Models (LLMs) by detecting Personally Identifiable Information (PII) in your text. It lets users selectively redact sensitive information before sending it to an LLM and then conveniently unredact the results afterward.
+
+### 2. How it works
 
 We built FlipRedact using a hybrid approach:
-
-* Regex rules to catch common structured PII (like phone numbers and emails).
-
-* A pretrained Named Entity Recognition (NER) model from Hugging Face to detect general entities.
-
-* A finetuned DistilBERT model to capture more domain-specific PII with higher accuracy.
+* **Regex rules** to catch common structured PII (like phone numbers and emails).
+* A pretrained **Named Entity Recognition (NER) model** from Hugging Face to detect general entities.
+* A finetuned **DistilBERT model** to capture more domain-specific PII with higher accuracy.
 
 Detected PII is returned with its position, type, and confidence score, which the frontend uses to highlight text and provide interactive redaction options for the user.
 
-## How to run FlipRedact
-### Set up
-1. Open powershell and run
-```
-git clone
-```
-2. Change directory to the cloned folder
-```
+---
+
+## How to Run FlipRedact
+
+### 1. Prerequisites
+
+Make sure you have the following installed:
+* [Git](https://git-scm.com/)
+* [Python 3.9+](https://www.python.org/)
+* [Node.js and npm](https://nodejs.org/)
+
+### 2. Setup
+
+First, clone the repository and navigate into the project's root directory.
+
+```bash
+# Clone the repository from GitHub
+git clone <YOUR_REPOSITORY_URL>
+
+# Navigate into the newly created folder
 cd FlipRedact
+````
+
+The project has the following structure:
+
+```
+FlipRedact/
+├── backend/
+│   ├── app.py
+│   └── ... (other python files)
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   └── ... (other jsx/js files)
+│   ├── package.json
+│   └── ...
+└── requirements.txt
 ```
 
-### Run Backend
-1. Open a powershell and create virtual environment
-```
+### 3\. Run the Backend (Server)
+
+The backend is a FastAPI server. Open a terminal in the project's root directory (`FlipRedact`).
+
+```bash
+# Create a virtual environment
 python -m venv venv
-```
 
-2. Enter virtual environment
-```
+# Activate the virtual environment
+# On Windows:
 venv\Scripts\Activate.ps1
-```
+# On macOS/Linux:
+# source venv/bin/activate
 
-3. Install required packages
-```
+# Install the required Python packages
 pip install -r requirements.txt
-```
 
-4. Run FastAPI
-```
+# Start the FastAPI server (run from the root directory)
 uvicorn backend.app:app --reload --port 3000
 ```
 
-### Run Frontend
-NodeJs is required to run Frontend
+Your backend should now be running at `http://127.0.0.1:3000`.
 
-1. Open another powershell
-```
+### 4\. Run the Frontend (Client)
+
+The frontend is a React application. **Open a new terminal** and navigate into the `frontend` directory.
+
+```bash
+# IMPORTANT: Change directory to the frontend folder
+cd frontend
+
+# Install the required node modules
 npm install
+
+# Start the React development server
+npm start
 ```
-2. Run app
-```
-npm run start
-```
+
 
 ## How to use FlipRedact
 1. Enter your text full of personal information
