@@ -45,7 +45,7 @@ FlipRedact/
 ├── backend/
 │   ├── app.py
 │   └── ... (other python files)
-├── frontend/
+├── my-app/
 │   ├── src/
 │   │   ├── App.jsx
 │   │   └── ... (other jsx/js files)
@@ -83,13 +83,13 @@ The frontend is a React application. **Open a new terminal** and navigate into t
 
 ```bash
 # IMPORTANT: Change directory to the frontend folder
-cd frontend
+cd my-app
 
 # Install the required node modules
 npm install
 
 # Start the React development server
-npm start
+npm run start
 ```
 
 
