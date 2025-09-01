@@ -95,6 +95,36 @@ npm run start
 
 ## How to use FlipRedact
 1. Enter your text full of personal information
+sample text:
+```
+Exclusive Performance Contract
+Parties:
+This agreement is entered into on 15 August 2025 between:
+StarForge Entertainment Pte Ltd
+Contact: hr@starforge-ent.com | +65 6789 1234
+[ARTIST GROUP: KPOP Demon Hunters]
+1. Member Details
+- Name: Kim Han
+- NRIC: S9123456A
+- Passport No: E1234567A
+- Phone: +65 8123 4567
+- Email: hana@demonhunters.com
+- Name: Lee Min
+- NRIC: S8234567B
+- Passport No: E8765432A
+- Address: 089322
+- Phone: +65 9345 6789
+- Email: minho@demonhunters.com
+2. Performance Details
+- Event: Demon Hunters World Tour – Singapore Stop
+- Venue: Singapore Indoor Stadium
+- Date: 20 September 2025
+3. Payment Terms
+- Total Contract Value: USD 500,000
+- Deposit: 50% payable upon signing (USD 250,000)
+- Balance: 50% payable within 7 days after performance
+- Payment Method: Bank Transfer to members’ registered accounts
+```
 <img width="1071" height="435" alt="image" src="https://github.com/user-attachments/assets/24530136-58d6-4789-aa5b-ab95d39327dd" />
 
 2. Press "Run PII Detection". A list of identified PIIs will appear on the right.
