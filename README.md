@@ -80,6 +80,8 @@ npm run start
 
 
 ## Deployment via Docker
+## Please navigate to the docker branch
+
 1. Install Docker Desktop: https://docs.docker.com/desktop/ for Linux/Windows/Mac
 
 2. Git clone repo branch docker
