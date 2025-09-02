@@ -17,6 +17,29 @@ Detected PII is returned with its position, type, and confidence score, which th
 
 ---
 
+## Deployment via Docker
+
+1. Install Docker Desktop: https://docs.docker.com/desktop/ for Linux/Windows/Mac
+
+2. Git clone repo branch docker
+```git clone --branch docker https://github.com/andrew250402/FlipRedact.git``` to desired folder
+
+3. Navigate to Flip-redact-1 (Main folder that contains "docker-compose.yml")
+```cd FlipRedact```
+
+4. Open up Docker Desktop (Must be running first) 
+   Then, run this line in cmd (in the desired folder) : ```docker-compose up```
+
+5. Docker Desktop should be running as well. Either press v in cmd or open Docker Desktop and follow the url (3000:80) to view web app
+   Make sure that both flipredact-frontend:latest and flipredact-backend:latest are running simulataneously
+
+
+Possible Troubleshooting:
+RAM issues due to WSL (docker software) 
+1) Win + R, type CMD. Then Ctrl + Shift + Enter to Run as Administrator
+2) Run ```wsl --shutdown``` to save your computer
+
+
 ## How to Run FlipRedact
 
 ### 1. Prerequisites
