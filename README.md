@@ -30,9 +30,10 @@ Detected PII is returned with its position, type, and confidence score, which th
 4. Open up Docker Desktop (Must be running first) 
    Then, run this line in cmd (in the desired folder) : ```docker-compose up```
 
-5. Docker Desktop should be running as well. Either press v in cmd or open Docker Desktop and follow the url (3000:80) to view web app
+5. Docker Desktop should be running as well. Either press v in cmd or open Docker Desktop and follow the url (react-app) to view web app
    Make sure that both flipredact-frontend:latest and flipredact-backend:latest are running simulataneously
-
+   
+<img width="1258" height="846" alt="image" src="https://github.com/user-attachments/assets/22a5e22c-ad96-46c3-8212-51ee6e42a721" />
 
 Possible Troubleshooting:
 RAM issues due to WSL (docker software) 
