@@ -1,3 +1,28 @@
+# Run on dockerhub without building
+version: "3.9"
+services:
+  backend:
+    image: zklio/flipredact-backend:latest
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    networks:
+      - appnet
+
+  frontend:
+    image: zklio/flipredact-frontend:latest
+    container_name: react_app
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+networks:
+  appnet:
+
+# If you want to run docker build and docker-compose up, uncomment this file
 # version: "3.9"
 # services:
 #   backend:
@@ -22,27 +47,3 @@
 
 # networks:
 #   appnet:
-
-# Run on dockerhub without building
-version: "3.9"
-services:
-  backend:
-    image: zklio/flipredact-backend:latest
-    container_name: fastapi_app
-    ports:
-      - "8000:8000"
-    networks:
-      - appnet
-
-  frontend:
-    image: zklio/flipredact-frontend:latest
-    container_name: react_app
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-    networks:
-      - appnet
-
-networks:
-  appnet:
