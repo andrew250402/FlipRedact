@@ -14,9 +14,12 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const entityRefs = useRef({});
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const runCheck = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:3000/predict", {
+      // const res = await fetch("http://127.0.0.1:8000/predict", {
+      const res = await fetch(`${API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: originalText }),
@@ -66,7 +69,8 @@ const runOCRCheck = async (file) => {
   formData.append("file", file);
 
   try {
-    const res = await fetch("http://127.0.0.1:3000/ocr", {
+    // const res = await fetch("http://127.0.0.1:8000/ocr", {
+    const res = await fetch(`${API_URL}/ocr`, {      
       method: "POST",
       body: formData,
     });

@@ -6,8 +6,9 @@ import pytesseract
 from PIL import Image
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import PredictRequest, PredictResponse, ExtractedTextResponse
-from inference import PIIModel
+# from schemas import PredictRequest, PredictResponse, ExtractedTextResponse
+from api.schemas import PredictRequest, PredictResponse, ExtractedTextResponse
+from api.inference import PIIModel
 
 
 

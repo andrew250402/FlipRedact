@@ -1,0 +1,8 @@
+api/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+api/distil_date_model/
+
