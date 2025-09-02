@@ -1,0 +1,48 @@
+# version: "3.9"
+# services:
+#   backend:
+#     build: ./backend
+#     container_name: fastapi_app
+#     ports:
+#       - "8000:8000"
+#     #env_file:
+#     #  - backend/.env
+#     networks:
+#       - appnet
+
+#   frontend:
+#     build: ./my-app
+#     container_name: react_app
+#     ports:
+#       - "3000:80"
+#     depends_on:
+#       - backend
+#     networks:
+#       - appnet
+
+# networks:
+#   appnet:
+
+# Run on dockerhub without building
+version: "3.9"
+services:
+  backend:
+    image: zklio/flipredact-backend:latest
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    networks:
+      - appnet
+
+  frontend:
+    image: zklio/flipredact-frontend:latest
+    container_name: react_app
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+networks:
+  appnet:
