@@ -85,10 +85,10 @@ npm run start
 1. Install Docker Desktop: https://docs.docker.com/desktop/ for Linux/Windows/Mac
 
 2. Git clone repo branch docker
-```git clone --branch docker https://github.com/ZKliio/FlipRedact-1.git``` to desired folder
+```git clone --branch docker https://github.com/andrew250402/FlipRedact.git``` to desired folder
 
 3. Navigate to Flip-redact-1 (Main folder that contains "docker-compose.yml")
-```cd Flip-redact-1```
+```cd FlipRedact```
 
 4. Open up Docker Desktop (Must be running first) 
    Then, run this line in cmd (in the desired folder) : ```docker-compose up```
