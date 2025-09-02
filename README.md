@@ -79,5 +79,28 @@ npm run start
 <img width="1280" height="343" alt="image" src="https://github.com/user-attachments/assets/f14f1ef0-10dc-4978-b11a-cd596011297b" />
 
 
+## Deployment via Docker
+1. Install Docker Desktop: https://docs.docker.com/desktop/ for Linux/Windows/Mac
+
+2. Git clone repo branch docker
+```git clone --branch docker https://github.com/ZKliio/FlipRedact-1.git``` to desired folder
+
+3. Navigate to Flip-redact-1 (Main folder that contains "docker-compose.yml")
+```cd Flip-redact-1```
+
+4. Open up Docker Desktop (Must be running first) 
+   Then, run this line in cmd (in the desired folder) : ```docker-compose up```
+
+5. Docker Desktop should be running as well. Either press v in cmd or open Docker Desktop and follow the url (3000:80) to view web app
+   Make sure that both flipredact-frontend:latest and flipredact-backend:latest are running simulataneously
+
+
+Possible Troubleshooting:
+RAM issues due to WSL (docker software) 
+1) Win + R, type CMD. Then Ctrl + Shift + Enter to Run as Administrator
+2) Run ```wsl --shutdown``` to save your computer
+
+
+
 
 
